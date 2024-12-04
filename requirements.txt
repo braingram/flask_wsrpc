@@ -1,4 +1,0 @@
-futures<3  # something is up with futures >=3
-flask
-futures
-tornado==4.0.1

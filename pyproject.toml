@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flask_wsprc"
+version = "0.0.0.dev"
+dependencies = [
+    "flask",
+    "futures<3",
+    "tornado==4.0.1",
+]
+
+[tool.setuptools]
+packages = ["wsrpc"]
