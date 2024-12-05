@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from cStringIO import StringIO
+from base64 import b64encode
+from io import BytesIO
 import os
 
 import numpy
@@ -11,10 +12,10 @@ import wsrpc
 
 def image_to_string(im):
     im = Image.fromarray(im.astype('u1'))
-    io = StringIO()
+    io = BytesIO()
     im.save(io, format='png')
     io.seek(0)
-    return io.read().encode('base64')
+    return b64encode(io.read()).decode('ascii')
 
 
 class Imager(object):
