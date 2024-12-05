@@ -18,6 +18,7 @@ error codes (negative):
 class RPCError(Exception):
     def __init__(self, message, code, msgid=None):
         Exception.__init__(self, message)
+        self.message = message
         self.code = code
         self.msgid = msgid
 
