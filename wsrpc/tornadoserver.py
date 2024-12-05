@@ -122,5 +122,10 @@ def serve(address=None, default_route=None, port=5000):
     application.listen(port, address=address)
     logger.info("Serving on address %s, port %s" % (address, port))
     loop = IOLoop.instance()
-    if not loop._running:
+    #breakpoint()
+    # not loop.is_running():
+    #  loop.start()
+    try:
         loop.start()
+    except RuntimeError:
+        pass
