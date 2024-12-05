@@ -3,6 +3,7 @@
 import inspect
 import logging
 import os
+import time
 
 import flask
 #import flask_sockets
@@ -121,11 +122,11 @@ def serve(address=None, default_route=None, port=5000):
     application = tornado.web.Application(items, debug=server.debug)
     application.listen(port, address=address)
     logger.info("Serving on address %s, port %s" % (address, port))
-    loop = IOLoop.instance()
-    #breakpoint()
-    # not loop.is_running():
-    #  loop.start()
+    loop = IOLoop.current()
     try:
         loop.start()
     except RuntimeError:
-        pass
+        # TODO loop is already running, we want to sleep the current
+        # thread forever
+        while True:
+            time.sleep(60)
