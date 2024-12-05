@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 def is_custom_object(a):
     if not hasattr(a, '__init__'):
         return False
-    if type(a).__module__ == '__builtin__':
+    if type(a).__module__ in ('__builtin__', 'builtins'):
         return False
     return True
 
@@ -38,12 +38,14 @@ def build_function_spec(o, prefix=None, s=None):
         n = prefix + k
         a = getattr(o, k)
         if inspect.ismethod(a):
-            arg_spec = inspect.getargspec(a)
+            arg_spec = inspect.getfullargspec(a)
             s[n] = {
                 'args': arg_spec.args,
-                'defaults': arg_spec.defaults,
                 'varargs': arg_spec.varargs,
-                'keywords': arg_spec.keywords,
+                'defaults': arg_spec.defaults,
+                'keywords': arg_spec.varkw,
+                # TODO note that positional only and keyword
+                # only arguments are NOT supported
             }
             # s[n] = arg_spec.args
         elif is_custom_object(a):
